@@ -45,6 +45,10 @@ exercise1_test:
 	@echo Running exercise1
 	@./exercise1 -limInf 1 -limSup 5 -numN 10
 
+exercise1_big_test:
+	@echo Running exercise1
+	@./exercise1 -limInf 1 -limSup 100 -numN 1000000 > e1_big_test.txt
+
 exercise2_test:
 	@echo Running exercise2
 	@./exercise2 -size 1 -numP 5
