@@ -59,7 +59,7 @@ exercise3_test:
 
 exercise4_test:
 	@echo Running exercise4
-	@./exercise4 -size 1
+	@./exercise4 -size 100
 
 exercise5_test:
 	@echo Running exercise5

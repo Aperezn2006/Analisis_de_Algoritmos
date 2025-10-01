@@ -18,17 +18,29 @@
 /***************************************************/
 int InsertSort(int* array, int ip, int iu)
 {
-  /* Your code */
+  
 }
 
 
 /***************************************************/
 /* Function: SelectSort    Date:                   */
-/* Your comment                                    */
+/* No funciona para arrays vacios                  */
 /***************************************************/
-int BubbleSort(int* array, int ip, int iu)
-{
-  /* Your code */
+int BubbleSort(int* array, int ip, int iu){
+  int i, j, OB;
+
+  for (i = ip; i < iu ; i++){
+    for (j = 0; j < (iu - i); j++){
+      int temp;
+      if (array[j] > array[j+1]){
+        temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+        OB++;
+      };
+    }
+  }
+  return OB;
 }
 
 
