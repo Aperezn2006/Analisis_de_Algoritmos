@@ -9,7 +9,6 @@
  *
  */
 
-
 #include "permutations.h"
 #include <stdlib.h>
 
