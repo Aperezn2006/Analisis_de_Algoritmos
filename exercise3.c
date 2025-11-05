@@ -1,15 +1,15 @@
-/**************************************************/
-/* Program: exercise3       Date:                 */
-/* Authors:                                       */
-/*                                                */
-/* Program that generates N random permutations   */
-/* with M elementos each                          */
-/*                                                */
-/* Input: Command line                            */
-/* -size: nomber of elements in each permutation  */
-/* -numP: numero of permutations                  */
-/* Output: 0: OK, -1: ERR                         */
-/**************************************************/
+/******************************************************/
+/* Program: exercise3       Date: 1/10/2025           */
+/* Authors: Ismael Nevado Serrano, Arturo Perez Noves */
+/*                                                    */
+/* Program that generates N random permutations       */
+/* with M elements each                               */
+/*                                                    */
+/* Input: Command line                                */
+/* -size: number of elements in each permutation      */
+/* -numP: number of permutations                      */
+/* Output: 0: OK, -1: ERR                             */
+/******************************************************/
 
 #include <stdlib.h>
 #include <stdio.h>

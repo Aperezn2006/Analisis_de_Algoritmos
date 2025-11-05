@@ -3,14 +3,15 @@
  * Descripcion: Header file for time measurement functions 
  *
  * Fichero: times.h
- * Autor: Carlos Aguirre.
+ * Autor: Ismael Nevado Serrano, Arturo Perez Noves
  * Version: 1.1
- * Fecha: 15-09-2019
+ * Fecha: 15-10-2025
  *
  */
 
 #ifndef TIMES_H
 #define TIMES_H
+
 
 /* constants */
 
@@ -18,6 +19,8 @@
   #define ERR -1
   #define OK (!(ERR))
 #endif
+
+
 
 #include "sorting.h"
 

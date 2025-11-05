@@ -1,6 +1,6 @@
 /***********************************************************/
-/* Program: exercise5                  Date:               */
-/* Authors:                                                */
+/* Program: exercise5                  Date:  1/10/2025    */
+/* Authors: Ismael Nevado Serrano, Arturo Perez Noves      */
 /*                                                         */
 /* Programa that writes in a file                          */
 /* the average times of the algorithm                      */
@@ -64,13 +64,13 @@ int main(int argc, char** argv)
       fprintf(stderr, "Wrong paramenter %s\n", argv[i]);
     }
   }
-
   /* compute times */
-  ret = generate_sorting_times(BubbleSort, nombre,num_min, num_max,incr, n_perms);
+  ret = generate_sorting_times(InsertSort, nombre,num_min, num_max,incr, n_perms);
   if (ret == ERR) { /* ERR_TIME should be a negative number */
     printf("Error in function generate_sorting_times\n");
     exit(-1);
   }
+  
   printf("Correct output \n");
 
   return 0;

@@ -3,14 +3,15 @@
  * Descripcion: Header file for sorting functions 
  *
  * Fichero: sorting.h
- * Autor: Carlos Aguirre
+ * Autor: ismael Nevado Serrano, Arturo Perez Noves
  * Version: 1.0
- * Fecha: 16-09-2019
+ * Fecha: 15-10-2025
  *
  */
 
 #ifndef SORTING_H
 #define SORTING_H
+
 
 /* constants */
 

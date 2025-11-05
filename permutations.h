@@ -3,9 +3,9 @@
  * Descripcion: Header for functions for permutations generation
  *
  * Fichero: permutations.h
- * Autor: Carlos Aguirre 
+ * Autor: ismael Nevado Serrano, Arturo Perez Noves
  * Version: 1.1
- * Fecha: 16-09-2019
+ * Fecha: 15-10-2025
  *
  */
 

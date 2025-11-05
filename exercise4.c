@@ -1,13 +1,13 @@
-/**************************************************/
-/* Programa: ejercise4       Date:                */
-/* Authors:                                       */
-/*                                                */
-/* Program that checks InsertSort                 */
-/*                                                */
-/* Input: Command Line                            */
-/* -size: number of elements of each permutation  */
-/* Output: 0: OK, -1: ERR                         */
-/**************************************************/
+/*******************************************************/
+/* Programa: ejercise4       Date:   1/10/2025         */
+/* Authors: Ismael Nevado Serrano, Arturo Perez Noves  */
+/*                                                     */
+/* Program that checks InsertSort                      */
+/*                                                     */
+/* Input: Command Line                                 */
+/* -size: number of elements of each permutation       */
+/* Output: 0: OK, -1: ERR                              */
+/*******************************************************/
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -44,15 +44,22 @@ int main(int argc, char** argv)
 
   perm = generate_perm(tamano);
 
+  printf("Generated permutation:\n");
+  for ( i = 0; i < tamano; i++)
+  {
+    printf("%d \t", perm[i]);
+  }
+  printf("\n");
+
   if (perm == NULL) { /* error */
     printf("Error: Out of memory\n");
     exit(-1);
   }
 
-  ret =BubbleSort(perm, 0, tamano-1);
+  ret = InsertSort(perm, 0, tamano-1);
 
   if (ret == ERR) {
-    printf("Error: Error in BubbleSort\n");
+    printf("Error: Error in InsertSort\n");
     free(perm);
     exit(-1);
   }

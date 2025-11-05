@@ -1,16 +1,16 @@
-/***********************************************/
-/* Program: exercise1     Date:                */
-/* Authors:                                    */
-/*                                             */
-/* Program that generates two random nunmbers  */
-/* between two given numbers                   */
-/*                                             */
-/* Input: Command Line                         */
-/* -limInf: lower limit                        */
-/* -limSup: upper limit                        */
-/* -numN: ammount of numbers                   */
-/* Output: 0: OK, -1: ERR                      */
-/***********************************************/
+/******************************************************/
+/* Program: exercise1     Date:                       */
+/* Authors: Ismael Nevado Serrano, Arturo Perez Noves */
+/*                                                    */
+/* Program that generates two random numbers          */
+/* between two given numbers                          */
+/*                                                    */
+/* Input: Command Line                                */
+/* -limInf: lower limit                               */
+/* -limSup: upper limit                               */
+/* -numN: amount of numbers                           */
+/* Output: 0: OK, -1: ERR                             */
+/******************************************************/
 
 #include <stdlib.h>
 #include <stdio.h>

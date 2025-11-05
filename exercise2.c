@@ -1,12 +1,12 @@
 /********************************************************/
-/* Program: exeercise2      Date:                       */
-/* Authors:                                             */
+/* Program: exercise2      Date: 1/10/2025              */
+/* Authors: Ismael Nevado Serrano, Arturo Perez Noves  */
 /*                                                      */
 /* Program that generates random permutations           */
 /*                                                      */
 /* Input: Command line                                  */
-/* -size: nomber of elements in each permutation        */
-/* -numP: numero of permutations                        */
+/* -size: number of elements in each permutation        */
+/* -numP: number of permutations                        */
 /* Output: 0: OK, -1: ERR                               */
 /********************************************************/
 
