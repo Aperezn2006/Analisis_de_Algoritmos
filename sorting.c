@@ -82,129 +82,248 @@ int BubbleSort(int *array, int ip, int iu)
   return count_OB;
 }
 
-int MergeSort (int* tabla, int ip, int iu){
-  int imedio;
+/*
+  function merge: merges two sorted halves of an array.
+  It takes the array and the indices defining the two halves.
+  It returns the number of operations performed during the merge.
 
-  if (ip > iu) return ERR;
+  arguments:
+    int *tabla: pointer to the array to be merged. tabla!=NULL
+    int ip: lower index of the first half. ip>=0
+    int iu: upper index of the second half. iu>ip
+    int imedio: upper index of the first half. ip<=imedio<iu
 
-  if (ip == iu) return OK; /*CONDICION DE PARADA*/
+  returns:
+    Number of operations performed during the merge.
 
-  imedio = (ip + iu) / 2;
+*/
+int merge(int *tabla, int ip, int iu, int imedio) {
 
-  MergeSort (tabla, ip, imedio - 1);
+    const int n_left  = imedio - ip + 1;
+    const int n_right = iu - imedio;
 
-  MergeSort (tabla, imedio, iu);
+    int i = 0;   
+    int t = 0;            
+    int j = 0;               
+    int k = ip;              
+    int ops = 0;       
 
-  merge (tabla, ip, iu, imedio);
+    int *tmp = (int *)malloc((size_t)(n_left + n_right) * sizeof(int));
+    if (tmp == NULL) return ERR;
 
-}
-
-
-int merge(int* tabla, int ip, int iu, int imedio){
-
-  int itres, i = ip, j = imedio;
-  int* tabla_resultante = NULL;
-
-  tabla_resultante = (int *) malloc ((iu-ip + 1) * sizeof(int));
-
-  if (tabla_resultante == NULL) return ERR;
-
-  for (itres = 0; i <= imedio || j <= iu; itres++){
-    if (tabla[i] < tabla[j]){
-      tabla_resultante[itres] = tabla[i];
-      i++;
-    } else {
-      tabla_resultante[itres] = tabla[j];
-      j++;
+          
+    
+    for (t = 0; t < n_left; ++t) {
+        tmp[t] = tabla[ip + t];
+        ++ops;               
     }
-  }
-  if (i <= imedio){
-    while (j <= iu)
-    {
-      tabla_resultante[itres]=tabla[j];
-      itres++;
-      j++;
-    } 
-  } else {
-    while (i<=imedio){
-      tabla_resultante[itres]=tabla[i];
-      itres++;
-      i++;
+    for (t = 0; t < n_right; ++t) {
+        tmp[n_left + t] = tabla[imedio + 1 + t];
+        ++ops;               
     }
-  }
-  
-  return OK;
-}
 
-int quicksort(int* tabla, int ip, int iu){
-  int pos, ob = 0;
-
-  if (ip >= iu) return 0;
-
-  ob += median (tabla, ip, iu, &pos);
-  ob += partition (tabla, ip, iu, &pos);
-  ob += quicksort(tabla, ip, pos - 1);
-  ob += quicksort(tabla, pos + 1, iu);
-
-  return ob;
-}
-
-int partition(int* tabla, int ip, int iu, int *pos){
-  int i, aux, j;
-  int ob = 0;
-  int piv = tabla[*pos];
-
-
-  aux = tabla[ip];
-  tabla[ip] = tabla[*pos];
-  tabla[*pos] = aux;
-  ob += 3;
-
-  i = ip + 1;
-
-  for (j = ip + 1; j <= iu; j++){
-    ob++;
-    if (tabla[j] < piv){
-      aux = tabla[i];
-      tabla[i] = tabla[j];
-      tabla[j] = aux;
-      i++;
-      ob += 3;
+    
+    while (i < n_left && j < n_right) {
+        ++ops; 
+        if (tmp[i] <= tmp[n_left + j]) {
+            tabla[k++] = tmp[i++];
+            ++ops; 
+        } else {
+            tabla[k++] = tmp[n_left + j++];
+            ++ops; 
+        }
     }
-    ob++;
-  }
+    
+    while (i < n_left) {
+        tabla[k++] = tmp[i++];
+        ++ops; 
+    }
+    while (j < n_right) {
+        tabla[k++] = tmp[n_left + j++];
+        ++ops; 
+    }
+
+    free(tmp);
+    return ops;
+}
+
+/* 
+  funcion mergesort: sorts an array using the Mergesort algorithm.
+  It takes the array and its bounds as input and sorts the array in place.
+  It returns the number of operations performed during sorting.
+
+  argument:
+    int *tabla: pointer to the array to be sorted. tabla!=NULL
+    int ip: lower index of the array segment to be sorted. ip>=0
+    int iu: upper index of the array segment to be sorted. iu>ip
+
+  returns:
+    Number of operations performed during sorting.
   
-  aux = tabla[ip];
-  tabla[ip] = tabla[i-1];
-  tabla[i-1] = aux;
-  ob += 3; 
+ */
 
-  *pos = i - 1;
+int mergesort(int *tabla, int ip, int iu) {
 
-  return ob;
+    int ops_left, ops_right, ops_merge;
+    int mid;
+
+    if (ip >= iu) return 0;
+
+    mid = ip + (iu - ip) / 2;
+
+    ops_left = mergesort(tabla, ip, mid);
+    if (ops_left == ERR) return ERR;
+
+    ops_right = mergesort(tabla, mid + 1, iu);
+    if (ops_right == ERR) return ERR;
+
+    ops_merge = merge(tabla, ip, iu, mid);
+    if (ops_merge == ERR) return ERR;
+
+    return ops_left + ops_right + ops_merge;
 }
 
-int median(int *tabla, int ip, int iu,int *pos){
-  int ob = 0;
 
-  *pos = ip;
-  ob++;
 
-  return ob;
+/* 
+  funcion median: selects the first element as pivot.
+  It takes the array and the indices defining the segment.
+  It returns the number of operations performed during the selection.
+
+  arguments:
+    int *tabla: pointer to the array. tabla!=NULL
+    int ip: lower index of the array segment. ip>=0
+    int iu: upper index of the array segment. iu>ip
+    int *pos: pointer to store the position of the median. pos!=NULL
+
+  returns:
+    Number of operations performed during median selection.
+*/
+int median(int *tabla, int ip, int iu, int *pos) {
+    *pos = ip;
+    return 0;
+}
+/* 
+  funcion median_avg: selects the average of the first and last elements as pivot.
+  It takes the array and the indices defining the segment.
+  It returns the number of operations performed during the selection.
+
+  arguments:
+    int *tabla: pointer to the array. tabla!=NULL
+    int ip: lower index of the array segment. ip>=0
+    int iu: upper index of the array segment. iu>ip
+    int *pos: pointer to store the position of the median. pos!=NULL
+
+  returns:
+    Number of operations performed during median selection.
+*/
+int median_avg(int *tabla, int ip, int iu, int *pos) {
+    if (!tabla || !pos || ip < 0 || iu < ip) return ERR;
+    *pos = (ip + iu) / 2;
+    return 0;                /* 0 OBs extra */
 }
 
-int median_avg(int *tabla, int ip, int iu, int *pos){
-  int ob = 0;
+/*
+  funcion median_stat: selects the median of the first, middle, and last elements as pivot.
+  It takes the array and the indices defining the segment.
+  It returns the number of operations performed during the selection.
+
+  arguments:
+    int *tabla: pointer to the array. tabla!=NULL
+    int ip: lower index of the array segment. ip>=0
+    int iu: upper index of the array segment. iu>ip
+    int *pos: pointer to store the position of the median. pos!=NULL
+
+  returns:
+    Number of operations performed during median selection. 
+*/
+int median_stat(int *tabla, int ip, int iu, int *pos) {
+
+    int mid = (ip + iu) / 2;
+    int i = ip, j = mid, k = iu;
+    int tt, t;
+
+    int a = tabla[i], b = tabla[j], c = tabla[k];
+ 
+    if (a > b) { t=i; i=j; j=t; tt=a; a=b; b=tt; }
+   
+    if (b > c) { t=j; j=k; k=t; tt=b; b=c; c=tt; }
+ 
+    if (a > b) { t=i; i=j; j=t; }
+
+    *pos = j;
+    return 3; 
+}
+
+/*
+  funcion partition: partitions an array segment around a pivot.
+  It takes the array and the indices defining the segment.
+  It returns the number of operations performed during partitioning.
+
+  arguments:
+    int *tabla: pointer to the array to be partitioned. tabla!=NULL
+    int ip: lower index of the array segment to be partitioned. ip>=0
+    int iu: upper index of the array segment to be partitioned. iu>ip
+    int *pos: pointer to store the final position of the pivot. pos!=NULL
+
+  returns:
+    Number of operations performed during partitioning.
+*/
+int partition(int *tabla, int ip, int iu, int *pos) {
+
+    long ops = 0;
+    int pivpos;
+    int r, pivot, i, j, t;
+
+    r = median(tabla, ip, iu, &pivpos);
+    if (r == ERR) return ERR;
+    ops += r;                 
+
+    if (pivpos != ip) {t = tabla[ip]; tabla[ip] = tabla[pivpos]; tabla[pivpos] = t; ops += 3; }
+
+    pivot = tabla[ip]; ops++;
+    i = ip;            ops++;
+
+    for (j = ip + 1; j <= iu; ++j) {
+        ops++;                         
+        if (tabla[j] < pivot) { ops++; 
+            ++i; ops++;
+            t = tabla[i]; tabla[i] = tabla[j]; tabla[j] = t; ops += 3;
+        }
+    }
+
+    
+    {t = tabla[ip]; tabla[ip] = tabla[i]; tabla[i] = t; ops += 3; }
+    *pos = i;
+
+    if (ops > INT_MAX) ops = INT_MAX;
+    return (int)ops;
+}
+
+
+/* 
+  funcion quicksort: sorts an array using the Quicksort algorithm.
+  It takes the array and its bounds as input and sorts the array in place.
+  It returns the number of operations performed during sorting.
+
+  argument:
+    int *tabla: pointer to the array to be sorted. tabla!=NULL
+    int ip: lower index of the array segment to be sorted. ip>=0
+    int iu: upper index of the array segment to be sorted. iu>ip
+
+  returns:
+    Number of operations performed during sorting.
   
-  pos = (iu - ip) / 2;
-  ob++;
+ */
+int quicksort(int *tabla, int ip, int iu) {
+    
+    int pos, r, ops = 0;
+    if (ip >= iu) return 0;
 
-  return ob;
-}
+    r = partition(tabla, ip, iu, &pos); if (r == ERR) return ERR; ops += r;
 
+    r = quicksort(tabla, ip, pos - 1); if (r == ERR) return ERR; ops += r;
+    r = quicksort(tabla, pos + 1, iu); if (r == ERR) return ERR; ops += r;
 
-int median_stat (int *tabla, int ip, int iu, int *pos){
-  int ob = 0;
-
-  return ob;
+    return ops;
 }

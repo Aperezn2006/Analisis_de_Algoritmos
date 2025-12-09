@@ -138,8 +138,9 @@ short generate_sorting_times(pfunc_sort method, char *file, int num_min, int num
 
   for (i = 0; i < n; i++)
   {
-
-    int size = num_min + i * incr; /* size of permutation */
+     int size = num_min + i * incr; /* size of permutation */
+    printf("Calculating time for size %d - %d\n", size, num_max );
+   
 
     time = average_sorting_time(method, n_perms, size, &ptime[i]);
     if (time == ERR)
@@ -155,7 +156,7 @@ short generate_sorting_times(pfunc_sort method, char *file, int num_min, int num
     fprintf(f, "%f %f %d %d\n", ptime[i].time, ptime[i].average_ob, ptime[i].min_ob, ptime[i].max_ob);
   }
   fclose(f);
-  save_time_table("time_table_insert", ptime, n);
+  save_time_table("time_table_insert.txt", ptime, n);
 
   free(ptime);
   return OK;
@@ -198,3 +199,5 @@ short save_time_table(char *file, PTIME_AA ptime, int n_times)
   fclose(f);
   return OK;
 }
+
+
